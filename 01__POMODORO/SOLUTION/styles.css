@@ -1,20 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
 @font-face {
-  font-family: "bebas";
+  font-family: 'bebas';
   src: url('./fonts/bebasneue-book-webfont.woff') format('woff'),
-      url('./fonts/bebasneue-book-webfont.woff2') format('woff2');
+    url('./fonts/bebasneue-book-webfont.woff2') format('woff2');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   align-items: center;
-  background: #2B2A30;
+  background: #2b2a30;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin: 0;
   min-height: 100vh;
   min-width: 100vw;
   padding: 0;
+  position: relative;
 }
 
 /* outer glow */
@@ -32,19 +40,27 @@ body {
 .ring {
   position: absolute;
   left: 0;
-  stroke: #09A65A;
+  stroke: #09a65a;
   top: 0;
   z-index: 1;
+  stroke-linecap: round;
+  stroke-dasharray: 1595;
+  stroke-dashoffset: 0;
+  transform: rotate(90deg);
+}
+
+.ring circle {
+  transition: all 1s;
 }
 
 .ring.ending circle {
-  stroke: #900A0A;
+  stroke: #900a0a;
 }
 
 /* inner circle */
 .timer {
   align-items: center;
-  background: radial-gradient(71.4% 71.4% at 51.7% 28.6%, #3A393F 0%, #17171A 100%);
+  background: radial-gradient(71.4% 71.4% at 51.7% 28.6%, #3a393f 0%, #17171a 100%);
   border-radius: 50%;
   box-shadow: inset 0px 0px 114px rgba(0, 0, 0, 0.45);
   color: white;
@@ -60,19 +76,19 @@ body {
 /* actual time */
 .time {
   display: flex;
-  font-family: "bebas";
+  font-family: 'bebas';
   font-size: 196px;
   margin: 30px auto;
   position: relative;
   top: 30px;
 }
 
-input[type="text"] {
+input[type='text'] {
   border: 0;
   border-bottom: 1px dashed white;
   background: none;
   color: white;
-  font-family: "bebas";
+  font-family: 'bebas';
   font-size: 196px;
   height: 170px;
   width: 150px;
@@ -80,7 +96,7 @@ input[type="text"] {
   outline: none;
 }
 
-input[type=text]:disabled {
+input[type='text']:disabled {
   border-bottom: none;
 }
 
@@ -92,10 +108,14 @@ input[type=text]:disabled {
   line-height: 20px;
   background: none;
   color: white;
-  opacity: .5;
+  opacity: 0.5;
   border: none;
   text-transform: uppercase;
   margin-bottom: 20px;
+}
+
+.start:disabled {
+  cursor: not-allowed;
 }
 
 .start:hover {
@@ -107,8 +127,97 @@ input[type=text]:disabled {
   background: none;
   cursor: pointer;
   opacity: 0.3;
+  position: relative;
+  padding-top: 1rem;
+}
+
+.settings > .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s;
+}
+
+.settings[data-status='configured'] .settings-icon {
+  transform: translate(-50%, 0);
+}
+
+.settings[data-status='configured'] .check-icon {
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.settings[data-status='configuring'] .settings-icon {
+  transform: translateY(-50%, -20px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.settings[data-status='configuring'] .check-icon {
+  transform: translate(-50%, 0);
 }
 
 .settings:hover {
   opacity: 1;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 20px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  margin: 1rem;
+  background: #cecece;
+  min-height: 4rem;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+  transform: translateY(-100px);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.message > button {
+  background: transparent;
+  border: none;
+}
+
+.message > .close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.message.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0);
+}
+
+.close-icon:before,
+.close-icon:after {
+  content: '';
+  display: inline-flex;
+  width: 1.2px;
+  height: 1rem;
+  background: #111111;
+  border-radius: 3px;
+  transform-origin: 60% 60%;
+}
+
+.close-icon:before {
+  transform: rotate(45deg);
+}
+
+.close-icon:after {
+  transform: rotate(-45deg);
 }
