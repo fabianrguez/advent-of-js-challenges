@@ -75,14 +75,12 @@ body {
   top: 0;
   right: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
 .content > .box {
   background: var(--white);
   border-radius: 25px;
-  height: 812px;
   overflow-y: auto;
   min-width: 375px;
   margin: 50px;
@@ -126,7 +124,6 @@ body {
   border-bottom-left-radius: 20px;
   margin-bottom: 35px;
   display: flex;
-  justify-content: space-between;
 }
 
 .menu-item > .menu-item__image img {
@@ -174,7 +171,8 @@ body {
   border: none;
   outline: 0;
   background: #cecece;
-  padding: 4px 18px;
+  max-width: 130px;
+  padding: 4px 14px;
   border-radius: 20px;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
@@ -345,6 +343,63 @@ body {
 .quantity:before {
   content: '$';
 }
+
+.modal {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: 0;
+  transition: all 0.1s;
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.modal.show .content {
+  transform: scale(1) translate(-50%, -50%);
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal .content {
+  background: var(--white-ice);
+  position: absolute;
+  max-width: 400px;
+  max-height: 200px;
+  top: 50%;
+  left: 50%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  transform: scale(0) translate(-50%, -50%);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s;
+}
+
+.modal .content .text {
+  font-weight: 700;
+}
+
+.modal .content footer {
+  display: flex;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* ANIMATION */
 
 .fade-up {
   animation: fadeUp 0.4s;

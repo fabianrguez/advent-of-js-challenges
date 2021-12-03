@@ -2,6 +2,7 @@ const addToCartButtons = document.querySelectorAll('.menu-item .btn');
 const cartWrapper = document.querySelector('.cart .wrapper');
 const cartItemTemplate = document.querySelector('#cart-item-template');
 const cartDetailsTemplate = document.querySelector('#cart-details-template');
+const modal = document.querySelector('.modal');
 
 let store;
 
@@ -75,6 +76,8 @@ function removeElementFromDom(element) {
 function createCartItem({ item, price, image, quantity, id }) {
   const totalPrice = +quantity * +price;
   cartItemTemplate.content.querySelector('.cart-item').dataset.id = id;
+  cartItemTemplate.content.querySelector('.cart-item').dataset.item = item;
+  cartItemTemplate.content.querySelector('.cart-item').dataset.price = price;
   cartItemTemplate.content.querySelector('.cart-item').dataset.quantity = quantity;
   cartItemTemplate.content.querySelector('.cart-item__content .text').innerText = item;
   cartItemTemplate.content.querySelector('.cart-item__image img').src = image;
@@ -96,7 +99,7 @@ function addCartDetails({ subtotal, tax, total }) {
 function modifyQuantity() {
   const { action } = this.dataset;
   const cartItem = this.closest('.cart-item');
-  const { id } = cartItem.dataset;
+  const { id, item, price } = cartItem.dataset;
   let quantity = 0;
   if (action === 'add') {
     quantity = store.addItem({ id });
@@ -104,14 +107,14 @@ function modifyQuantity() {
     quantity = store.removeItem(id);
   }
 
-  cartItem.querySelector('.cart-item__quantity').innerText = quantity;
-  updateCartTotal(store.cart);
-
   if (quantity === 0) {
-    removeElementFromDom(cartItem);
-    const menuItem = document.querySelector(`.menu-item[data-id="${id}"] .btn`);
-    menuItem.classList.remove('btn-check');
-    menuItem.innerText = 'Add to Card';
+    modal.dataset.itemId = id;
+    modal.dataset.item = item;
+    modal.dataset.price = price;
+    modal.classList.add('show');
+  } else {
+    cartItem.querySelector('.cart-item__quantity').innerText = quantity;
+    updateCartTotal(store.cart);
   }
 }
 
@@ -160,5 +163,28 @@ function initCart() {
   store = createCart();
 }
 
+function deleteFromCart() {
+  const { itemId } = this.closest('.modal').dataset;
+  const item = document.querySelector(`.cart-item[data-id="${itemId}"]`);
+
+  removeElementFromDom(item);
+  const menuItem = document.querySelector(`.menu-item[data-id="${itemId}"] .btn`);
+  menuItem.classList.remove('btn-check');
+  menuItem.innerText = 'Add to Card';
+
+  updateCartTotal(store.cart);
+  closeModal({ updateStore: false });
+}
+
+function closeModal({ updateStore = true } = {}) {
+  if (updateStore) {
+    const { itemId, item, price } = this.closest('.modal').dataset;
+    store.addItem({ id: itemId, item, price });
+  }
+  modal.classList.remove('show');
+}
+
+modal.querySelector('.js-modal-yes').addEventListener('click', deleteFromCart);
+modal.querySelector('.js-modal-no').addEventListener('click', closeModal);
 addToCartButtons.forEach((addToCartButton) => addToCartButton.addEventListener('click', addItemToCart));
 document.addEventListener('DOMContentLoaded', initCart);
