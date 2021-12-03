@@ -1,12 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>02 - Ecommerce Component || Advent of JavaScript</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02 - Ecommerce Component || Advent of JavaScript</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="background">
+      <img class="middle-left" src="./images/bg__left.svg" alt="" />
+      <img class="top-right" src="./images/bg__top-right.svg" alt="" />
+      <img class="bottom-right" src="./images/bg__btm-right.svg" alt="" />
+    </section>
+    <main class="content">
+      <section class="box menu">
+        <h2 class="title ml-m">to go menu</h2>
+        <div class="wrapper">
+          <article
+            class="menu-item"
+            data-price="4.50"
+            data-item="French fries with ketchup"
+            data-id="1"
+            data-image="./images/plate__french-fries.png"
+          >
+            <div class="menu-item__image">
+              <img src="./images/plate__french-fries.png" alt="" />
+            </div>
+            <div class="menu-item__content">
+              <p class="text">French fries with ketchup</p>
+              <span class="menu-item__price">4.50</span>
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </article>
+          <article
+            class="menu-item"
+            data-price="4.50"
+            data-item="Salmon and vegetables"
+            data-id="2"
+            data-image="./images/plate__salmon-vegetables.png"
+          >
+            <div class="menu-item__image">
+              <img src="./images/plate__salmon-vegetables.png" alt="" />
+            </div>
+            <div class="menu-item__content">
+              <p class="text">Salmon and vegetables</p>
+              <span class="menu-item__price">4.50</span>
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </article>
+          <article
+            class="menu-item"
+            data-price="4.50"
+            data-item="Spaghetti with Meat Sauce"
+            data-id="3"
+            data-image="./images/plate__spaghetti-meat-sauce.png"
+          >
+            <div class="menu-item__image">
+              <img src="./images/plate__spaghetti-meat-sauce.png" alt="" />
+            </div>
+            <div class="menu-item__content">
+              <p class="text">Spaghetti with Meat Sauce</p>
+              <span class="menu-item__price">4.50</span>
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </article>
+          <article
+            class="menu-item"
+            data-price="4.50"
+            data-item="Tortellini"
+            data-id="4"
+            data-image="./images/plate__tortellini.png"
+          >
+            <div class="menu-item__image">
+              <img src="./images/plate__tortellini.png" alt="" />
+            </div>
+            <div class="menu-item__content">
+              <p class="text">Tortellini</p>
+              <span class="menu-item__price">4.50</span>
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </article>
+          <article
+            class="menu-item"
+            data-price="4.50"
+            data-item="Ravioli"
+            data-id="5"
+            data-image="./images/plate__ravioli.png"
+          >
+            <div class="menu-item__image">
+              <img src="./images/plate__ravioli.png" alt="" />
+            </div>
+            <div class="menu-item__content">
+              <p class="text">Ravioli</p>
+              <span class="menu-item__price">4.50</span>
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </article>
+          <article
+            class="menu-item"
+            data-price="4.50"
+            data-item="Chicken salad"
+            data-id="6"
+            data-image="./images/plate__chicken-salad.png"
+          >
+            <div class="menu-item__image">
+              <img src="./images/plate__chicken-salad.png" alt="" />
+            </div>
+            <div class="menu-item__content">
+              <p class="text">Chicken salad</p>
+              <span class="menu-item__price">4.50</span>
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </article>
+          <article
+            class="menu-item"
+            data-price="4.50"
+            data-item="Bacon and Eggs"
+            data-id="7"
+            data-image="./images/plate__bacon-eggs.png"
+          >
+            <div class="menu-item__image">
+              <img src="./images/plate__bacon-eggs.png" alt="" />
+            </div>
+            <div class="menu-item__content">
+              <p class="text">Bacon and Eggs</p>
+              <span class="menu-item__price">4.50</span>
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </article>
+          <article
+            class="menu-item"
+            data-price="4.50"
+            data-item="fish sticks fries"
+            data-id="8"
+            data-image="./images/plate__fish-sticks-fries.png"
+          >
+            <div class="menu-item__image">
+              <img src="./images/plate__fish-sticks-fries.png" alt="" />
+            </div>
+            <div class="menu-item__content">
+              <p class="text">fish sticks fries</p>
+              <span class="menu-item__price">4.50</span>
+              <button class="btn btn-primary">Add to Cart</button>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="box cart">
+        <h2 class="title ml-m">your cart</h2>
+        <div class="wrapper">
+          <template id="cart-item-template">
+            <div class="cart-item">
+              <div class="cart-item__image">
+                <img src="./images/plate__fish-sticks-fries.png" alt="" />
+              </div>
+              <div class="cart-item__content">
+                <p class="text"></p>
+                <span class="cart-item__content-item-price"></span>
+                <footer class="cart-item__content-footer">
+                  <div class="cart-item__quantity-wrapper">
+                    <button class="btn btn-rounded btn-primary" data-action="substract">
+                      <span class="icon chevron-icon"></span>
+                    </button>
+                    <span class="cart-item__quantity"></span>
+                    <button class="btn btn-rounded btn-primary" data-action="add">
+                      <span class="icon chevron-icon-next"></span>
+                    </button>
+                  </div>
+                  <h2 class="cart-item__total"></h2>
+                </footer>
+              </div>
+            </div>
+          </template>
+          <template id="cart-details-template">
+            <div class="cart-details">
+              <div class="subtotal"><span class="heading">Subtotal:</span> <span class="quantity"></span></div>
+              <div class="tax"><span class="heading">Tax:</span><span class="quantity"></span></div>
+              <div class="total"><span class="heading">Total:</span> <span class="quantity"></span></div>
+            </div>
+          </template>
+          <p class="text ml-m empty-message">Your cart is empty.</p>
+          <section class="cart-items"></section>
+          <section class="cart-total"></section>
+        </div>
+      </section>
+    </main>
+    <script src="./main.js"></script>
+  </body>
 </html>
