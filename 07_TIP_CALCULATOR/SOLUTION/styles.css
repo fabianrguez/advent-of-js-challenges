@@ -183,5 +183,10 @@ button {
 }
 
 button:hover {
+<<<<<<< HEAD
   background: #254441;
+=======
+  background: white;
+  color: black;
+>>>>>>> 04e6649ed3d59614749e495fe42b1363f963b043
 }
