@@ -31,8 +31,14 @@ body {
   left: 0;
   width: 100vw;
   overflow-x: scroll;
+  scroll-behavior: smooth;
   scroll-padding: 0 100px;
-  scroll-snap-type: both mandatory;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+}
+
+.thumbnails::-webkit-scrollbar {
+  display: none;
 }
 
 .thumbnails ul {
@@ -51,7 +57,7 @@ body {
 
 .thumbnails li {
   scroll-snap-align: start;
-  scroll-snap-stop: normal;
+  scroll-snap-stop: always;
 }
 
 .thumbnails .selected {
@@ -64,6 +70,7 @@ body {
   height: 175px;
   width: 175px;
   vertical-align: middle;
+  animation: loadImage 2s;
 }
 
 .left,
@@ -96,4 +103,15 @@ body {
 .right img {
   transform: rotate(180deg);
   margin: auto;
+}
+
+@keyframes loadImage {
+  0% {
+    filter: blur(20px);
+    opacity: 0.8;
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+  }
 }
