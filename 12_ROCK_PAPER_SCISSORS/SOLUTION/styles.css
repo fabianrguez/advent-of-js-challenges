@@ -7,16 +7,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .wrapper {
-
 }
 
 h1 {
   font-weight: bold;
   font-size: 2rem;
-  text-align: center;;
+  text-align: center;
   margin-bottom: 75px;
 }
 
@@ -48,7 +48,7 @@ li.pick-one button {
 }
 
 li.pick-one button:hover {
-  border: 10px solid #FFB800;
+  border: 10px solid #ffb800;
 }
 
 li.pick-one img {
@@ -67,8 +67,18 @@ body.winner.computer-wins {
   background-size: auto 100%;
 }
 
+h1.tie-game {
+  visibility: hidden;
+}
+
+body.tie h1.tie-game {
+  visibility: visible;
+}
+
 body.computer-wins h1.you-win,
-body.you-win h1.computer-wins {
+body.you-win h1.computer-wins,
+body.tie h1.you-win,
+body.tie h1.computer-wins {
   visibility: hidden;
 }
 
@@ -79,7 +89,7 @@ body.winner .wrapper {
 }
 
 body.winner img {
-  mix-blend-mode: multiply;;
+  mix-blend-mode: multiply;
 }
 
 .computer-pick img {
