@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   background-color: black;
   min-width: 100vw;
@@ -10,12 +14,12 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-
 .wrapper {
   display: grid;
-  margin: 0 200px;
-  grid-template-areas: "header header"
-    "feature aside";
+  margin: 0 100px;
+  grid-template-areas:
+    'header header'
+    'feature aside';
   grid-template-columns: 3fr 1fr;
   grid-column-gap: 50px;
   grid-template-rows: 120px 1fr;
@@ -27,10 +31,19 @@ header {
   grid-area: header;
 }
 
+header img {
+  height: 100%;
+  width: auto;
+}
+
 .feature {
   grid-area: feature;
   height: 100%;
   overflow-y: scroll;
+}
+
+.feature iframe {
+  height: 600px;
 }
 
 h1 {
@@ -68,4 +81,48 @@ aside li a {
 h3 {
   margin: 0;
   padding: 0;
+}
+
+.gallery-item {
+  display: flex;
+  align-items: flex-start;
+  height: 94px;
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+
+.gallery-item:hover {
+  transform: scale(1.04);
+}
+
+.gallery-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.gallery-item img {
+  width: auto;
+  height: 94px;
+}
+
+.gallery-item h3 {
+  font-size: 14px;
+}
+
+@media (max-width: 720px) {
+  .wrapper {
+    grid-template-areas:
+      'header header'
+      'feature feature'
+      'aside aside';
+    margin: 0 20px;
+  }
+
+  .feature {
+    height: 400px;
+  }
+
+  .feature .embed iframe {
+    height: 100%;
+  }
 }
