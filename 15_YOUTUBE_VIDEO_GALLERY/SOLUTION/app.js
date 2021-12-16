@@ -1,6 +1,7 @@
 const galleryElement = document.querySelector('.gallery');
 const featuredVideoElement = document.querySelector('.feature');
 const galleryVideoTemplate = document.querySelector('#gallery-video-item');
+const commentListElement = document.querySelector('.comment__list');
 
 function getUrlParams() {
   const queryString = decodeURIComponent(location.search).substring(1).split('&');
@@ -39,19 +40,55 @@ async function retrieveVideoList() {
     .then((data) => data);
 }
 
+function calcuateCommentTimeAgo(commentDate) {
+  const now = new Date();
+  const comment = new Date(commentDate);
+  const timeDifference = now.getTime() - comment.getTime();
+  const daysDifference = Math.ceil(timeDifference / (1000 * 3000 * 24));
+
+  return daysDifference;
+}
+
+function loadVideoComments(comments = []) {
+  if (comments.length === 0) return;
+
+  const nameInitials = (name) => {
+    const [first, second, ..._] = name;
+    return `${first.toUpperCase()}${second.toUpperCase()}`;
+  };
+
+  commentListElement.innerHTML = comments
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .map(
+      ({ user, comment, publishedAt }) => `<div class="comment">
+      <span class="circle">${nameInitials(user)}</span>
+      <div class="comment__content">
+        <div class="comment__info">
+          <span class="comment__info--user">${user}</span>
+          <span class="comment__info--time">${calcuateCommentTimeAgo(publishedAt)} days ago</span>
+        </div>    
+        <p>${comment}</p>
+      </div>
+    </div>`
+    )
+    .join('');
+}
+
 function loadFeaturedVideo({ id, snippet }) {
   const { videoId } = id;
-  const { title, description } = snippet;
+  const { title, description, comments } = snippet;
 
   const embedVideo = featuredVideoElement.querySelector('.embed');
   embedVideo.firstElementChild.src = `https://www.youtube.com/embed/${videoId}`;
   featuredVideoElement.querySelector('h1').innerText = title;
   featuredVideoElement.querySelector('p').innerText = description;
+  loadVideoComments(comments);
 }
 
 async function init() {
   const { items } = await retrieveVideoList();
   const activeVideo = findActiveVideoByParams(items);
+
   initGallery(items);
   loadFeaturedVideo(activeVideo);
 }

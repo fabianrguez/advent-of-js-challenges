@@ -37,6 +37,23 @@
             "height": 360
           }
         },
+        "comments": [
+          {
+            "comment": "ASd uijasjdfo jsaodfdfghfgdj fdghdgfhp kas 👌",
+            "user": "User 1",
+            "publishedAt": "2021-12-01T15:00:26Z"
+          },
+          {
+            "comment": "👌🤣💻💻📱🔔😍",
+            "user": "Test",
+            "publishedAt": "2021-12-04T15:20:26Z"
+          },
+          {
+            "comment": "Great video, you know what it means 😛",
+            "user": "Elvis",
+            "publishedAt": "2021-12-09T15:30:26Z"
+          }
+        ],
         "channelTitle": "James Q Quick",
         "liveBroadcastContent": "none",
         "publishTime": "2021-12-09T15:00:26Z"
