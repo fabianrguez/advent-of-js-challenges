@@ -2,7 +2,6 @@ const anchorLinks = document.querySelectorAll('a[href^="#"]');
 const titles = document.querySelectorAll('h3');
 
 function setNavLinkActive(hash) {
-  console.log({ hash });
   document.querySelectorAll('aside ul li').forEach((li) => li.classList.remove('selected'));
   const anchor = [...anchorLinks].find((anchor) => anchor.hash === hash);
   anchor.parentElement.classList.add('selected');
