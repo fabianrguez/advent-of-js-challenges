@@ -6,6 +6,7 @@ body {
   min-width: 100vw;
   min-height: 100vh;
   font-family: 'Roboto', sans-serif;
+  scroll-behavior: smooth;
 }
 
 h1 {
@@ -29,13 +30,13 @@ h3 {
 }
 
 a {
-  color: #F40082;
+  color: #f40082;
   font-weight: 800;
 }
 
 blockquote {
   font-size: 1.625rem;
-  color: #8B8B8B;
+  color: #8b8b8b;
   max-width: 466px;
   margin: 38px auto;
 }
@@ -71,7 +72,6 @@ caption {
   grid-column-gap: 20px;
 }
 
-
 aside {
   grid-column: 2 / span 2;
 }
@@ -87,7 +87,7 @@ aside .table-of-contents {
   font-size: 0.875rem;
   letter-spacing: 3px;
   padding-left: 24px;
-  margin-bottom: 30px;;
+  margin-bottom: 30px;
 }
 
 aside ul {
@@ -103,8 +103,8 @@ aside ul li {
 }
 
 aside ul li.selected {
-  color: #F40082;
-  border-left: 2px solid #F40082
+  color: #f40082;
+  border-left: 2px solid #f40082;
 }
 
 aside ul li a {
@@ -115,7 +115,7 @@ aside ul li a {
 
 aside ul li.selected a {
   font-weight: bold;
-  color: #F40082;
+  color: #f40082;
 }
 
 main {
