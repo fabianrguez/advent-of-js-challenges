@@ -1,2 +1,4 @@
 *.code-workspace
 advent-of-js.code-workspace
+*.vscode
+.vscode/settings.json
