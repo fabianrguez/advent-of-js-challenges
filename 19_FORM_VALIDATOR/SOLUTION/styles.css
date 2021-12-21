@@ -74,7 +74,7 @@ input[type=text]:focus + label,
 input[type=email]:focus + label,
 input[type=password]:focus + label {
   font-size: 0.875rem;
-  top: 0;
+  top: 0
 }
 
 .show-hide {
@@ -94,7 +94,7 @@ input[type=password]:focus + label {
   top: 28px;
 }
 
-input[type="submit"] {
+button[type="submit"] {
   background: var(--primary);
   color: white;
   border-radius: 4px;
