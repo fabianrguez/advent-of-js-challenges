@@ -11,9 +11,9 @@ body {
 }
 
 :root {
-  --primary: #51F129;
-  --positive: #4CA536;
-  --negative: #DF1414;
+  --primary: #51f129;
+  --positive: #4ca536;
+  --negative: #df1414;
 }
 
 h1 {
@@ -32,33 +32,44 @@ h2 {
 
 label {
   font-weight: normal;
-  color: #8E909D;
-  font-size:  0.875rem;
+  color: #8e909d;
+  font-size: 0.875rem;
   line-height: 1.3125rem;
   position: absolute;
   left: 20px;
   top: 12px;
+  transition: all 0.4s;
 }
 
-input[type=text] {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='text'],
+input[type='number'] {
   background: #323645;
   border-radius: 16px;
-  padding:  35px 20px 15px;
+  padding: 35px 20px 15px;
   border: 2px solid transparent;
   width: 100%;
   height: 85px;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
   color: white;
-  font-size:  1.25rem;
+  font-size: 1.25rem;
   outline: none;
+  transition: all 0.4s;
 }
 
-input[type=text]:focus {
+input[type='text']:focus,
+input[type='number']:focus {
   border: 2px solid var(--primary);
 }
 
-input[type=text]:focus + label {
+input[type='text']:focus + label,
+input[type='number']:focus + label {
   color: var(--primary);
 }
 
@@ -70,7 +81,7 @@ input[type=text]:focus + label {
 }
 
 .add-panel {
-  background: #282A37;
+  background: #282a37;
   padding: 170px 125px 180px;
 }
 
@@ -137,10 +148,9 @@ input[type=text]:focus + label {
 }
 
 .summary-amount.positive {
-  color: var(--positive)
+  color: var(--positive);
 }
 
 .summary-amount.negative {
-  color: var(--negative)
+  color: var(--negative);
 }
-
