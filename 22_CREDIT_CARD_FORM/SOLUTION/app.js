@@ -20,6 +20,9 @@ const CREDIT_CARD_TYPE = {
   6: 'discover',
 };
 
+const chunk = (arr, size) =>
+  Array.from({ length: Math.ceil(arr.length / size) }, (v, i) => arr.slice(i * size, i * size + size));
+
 function getCreditCardType(creditCardNumber) {
   const [first] = [...creditCardNumber];
   return CREDIT_CARD_TYPE[first] ?? CREDIT_CARD_TYPE[4]; // by default type is going to be visa
@@ -33,7 +36,7 @@ function changeCreditCardType(type) {
 function parseCreditCardNumber(creditCard) {
   if (creditCard.length < CREDIT_CARD_NUMBER_GROUP) return creditCard;
 
-  return creditCard.match(/.{4}/g).join(CREDIT_CARD_SEPARATOR);
+  return chunk(creditCard.replace(/\s+/g, ''), CREDIT_CARD_NUMBER_GROUP).join(CREDIT_CARD_SEPARATOR);
 }
 
 function parseMonth(month) {
@@ -93,6 +96,7 @@ function updateCvv(cvv) {
 function handleCardNumber() {
   updateCreditCardNumber(this.value);
   updateCreditCardType(this.value);
+  this.value = parseCreditCardNumber(this.value);
 }
 
 function handleCardHolder() {

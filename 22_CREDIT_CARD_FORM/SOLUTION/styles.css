@@ -29,7 +29,6 @@ input::-webkit-inner-spin-button {
   left: 50%;
   transform: translateX(-334px);
   z-index: 10;
-  transition: rotate, background-image 1s ease;
 }
 
 .credit-card__wrapper.flip .credit-card__inner {
