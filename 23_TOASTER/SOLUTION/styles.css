@@ -102,10 +102,10 @@ input[type=email] {
   border-radius: 4px;
   font-family: 'Roboto Mono', monospace;
   color: black;
-  font-size: 1.125;
+  font-size: 1.125rem;
   padding: 0 20px;
   border: none;
-  margin-right: 10px;;
+  margin-right: 10px;
 }
 
 .submit {
