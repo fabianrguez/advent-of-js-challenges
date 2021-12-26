@@ -1,182 +1,151 @@
-const data = [
-    {
-        id: 1,
-        name: 'Cameron Williamson',
-        email: 'cameron.wiliamson@example.com',
-        title: 'Software Developer'
-    },
-    {
-        id: 2,
-        name: 'Jenny Wilson',
-        email: 'jenny.wilson@example.com',
-        title: 'Project Manager'
-    },
-    {
-        id: 3,
-        name: 'Jane Cooper',
-        email: 'jane.cooper@example.com',
-        title: 'Marketing Coordinator'
-    },
-    {
-        id: 4,
-        name: 'Wade Warren',
-        email: 'wade.warren@example.com',
-        title: 'Software Tester'
-    },
-    {
-        id: 5,
-        name: 'Esther Howard',
-        email: 'esther.howard@example.com',
-        title: 'Web Designer'
-    },
-    {
-        id: 6,
-        name: 'Kristin Watson',
-        email: 'kristin.watson@example.com',
-        title: 'Marketing Coordinator'
-    },
-    {
-        id: 7,
-        name: 'Esther Howard',
-        email: 'esther.howard@example.com',
-        title: 'Web Designer'
-    },
-    {
-        id: 8,
-        name: 'Leslie Alexander',
-        email: 'leslie.alexander@example.com',
-        title: 'UI/UX Designer'
-    },
-    {
-        id: 9,
-        name: 'Ralph Edwards',
-        email: 'ralph.edwards@example.com',
-        title: 'Software Tester'
-    },
-    {
-        id: 10,
-        name: 'Courtney Henry',
-        email: 'courtney.henry@example.com',
-        title: 'Ethical Hacker'
-    },
-    {
-        id: 11,
-        name: 'Willie Jennings',
-        email: 'willie.jennings@example.com',
-        title: 'Team Leader'
-    },
-    {
-        id: 12,
-        name: 'Neveah Simmons',
-        email: 'neveah.simmons@example.com',
-        title: 'Team Leader'
-    },
-    {
-        id: 13,
-        name: 'Theresa Webb',
-        email: 'theresa.webb@example.com',
-        title: 'Software Tester'
-    },
-    {
-        id: 14,
-        name: 'Debbe Baker',
-        email: 'debbe.baker@example.com',
-        title: 'Software Developer'
-    },
-    {
-        id: 15,
-        name: 'Ronald Richards',
-        email: 'ronald.richards@example.com',
-        title: 'Software Developer'
-    },
-    {
-        id: 16,
-        name: 'Deanna Curtis',
-        email: 'deanna.curtis@example.com',
-        title: 'Scrum Master'
-    },
-    {
-        id: 17,
-        name: 'Felicia Reid',
-        email: 'felicia.reed@example.com',
-        title: 'Ethical Hacker'
-    },
-    {
-        id: 18,
-        name: 'Jessie Alexander',
-        email: 'jessie.alexander@example.com',
-        title: 'Project Manager'
-    },
-    {
-        id: 19,
-        name: 'Sam Smith',
-        email: 'sam.smith@example.com',
-        title: 'Ethical Hacker'
-    },
-    {
-        id: 20,
-        name: 'Eleanor Rigby',
-        email: 'eleanor.rigby@example.com',
-        title: 'UI/UX Designer'
-    },
-    {
-        id: 21,
-        name: 'Devon Lane',
-        email: 'devon.lane@example.com',
-        title: 'Team Leader'
-    },
-    {
-        id: 22,
-        name: 'Guy Hawkins',
-        email: 'guy.hawkins@example.com',
-        title: 'Team Leader'
-    },
-    {
-        id: 23,
-        name: 'Jim Parks',
-        email: 'jim.parks@example.com',
-        title: 'Ethical Hacker'
-    },
-    {
-        id: 24,
-        name: 'Susanne Ford',
-        email: 'susanne.ford@example.com',
-        title: 'Software Developer Manager'
-    },
-    {
-        id: 25,
-        name: 'Kathryn Murphy',
-        email: 'kathryn.murphy@example.com',
-        title: 'Project Manager'
-    },
-    {
-        id: 26,
-        name: 'Cody Fisher',
-        email: 'cody.fisher@example.com',
-        title: 'Software Developer'
-    },
-    {
-        id: 27,
-        name: 'Jane Cooper',
-        email: 'jane.cooper@example.com',
-        title: 'Software Tester'
-    },
-    {
-        id: 28,
-        name: 'Karen MacAfee',
-        email: 'karen.macafee@example.com',
-        title: 'UI/UX Designer'
-    },
-    {
-        id: 29,
-        name: 'Dianne Russell',
-        email: 'dianne.russell@example.com',
-        title: 'Ethical Hacker'
-    },
-    {
-        id: 30,
-        name: 'Bessie Cooper',
-        email: 'bessie.cooper@example.com',
-        title: 'Scrum Master'
-    },
-]
+const tableBody = document.querySelector('tbody');
+const totalPageElement = document.querySelector('#totalPages');
+const totalResultsElement = document.querySelector('.total-results');
+const currentPageInput = document.querySelector('input[name=currentPage]');
+const nextButton = document.querySelector('.next');
+const previousButton = document.querySelector('.previous');
+const sortButtons = document.querySelectorAll('.sort');
+
+let state = {
+  actualPage: 1,
+  totalPages: 0,
+  limit: 10,
+  offset: 0,
+  orderBy: 'id',
+  direction: 'ascending',
+};
+
+async function retrieveData({ limit = 10, offset = 0, orderBy = 'id', direction = 'asc' } = {}) {
+  const response = await fetch('./data.json')
+    .then((response) => response.json())
+    .then((data) => data);
+  const items = [...response]
+    .sort((a, b) => {
+      if (typeof a[orderBy] === 'string') {
+        if (direction === 'ascending') {
+          if (a[orderBy] > b[orderBy]) return 1;
+          if (a[orderBy] < b[orderBy]) return -1;
+          return 0;
+        } else if (direction === 'descending') {
+          if (a[orderBy] > b[orderBy]) return -1;
+          if (a[orderBy] < b[orderBy]) return 1;
+          return 0;
+        }
+        return 0;
+      } else {
+        if (direction === 'descending') {
+          return b[orderBy] - a[orderBy];
+        }
+        // by default it will be ordered ascendant
+        return a[orderBy] - b[orderBy];
+      }
+    })
+    .splice(offset, limit);
+
+  return { items, total: response.length, offset };
+}
+
+function populateTableData(data) {
+  tableBody.innerHTML = data.items
+    .map(
+      ({ id, name, email, title }) => `
+    <tr>
+        <td>${id}</td>
+        <td class="name">
+            <input type="text" disabled="disabled" name="person-name-${id}" value="${name}" />
+        </td>
+        <td>
+            <input type="text" disabled="disabled" name="person-email-${id}" value="${email}" />
+        </td>
+        <td>
+            <input type="text" disabled="disabled" name="person-title-${id}" value="${title}" />
+        </td>
+        <td>
+            <button class="update" name="person-update-${id}" id="personUpdate${id}">
+                <img src="./images/update.svg" alt="Update" class="update" />
+            </button>
+            <button class="edit" name="person-edit-${id}" id="personEdit${id}">
+                <img src="./images/edit.svg" alt="Edit" class="edit" />
+            </button>
+        </td>
+    </tr>
+    `
+    )
+    .join('');
+}
+
+function updateTableInfo(data) {
+  populateTableData(data);
+  updateTotalResults(data.total);
+  updateActualPage(state.actualPage);
+  state.offset = data.offset;
+}
+
+function updateTotalResults(total) {
+  totalResultsElement.innerText = `${total} Results`;
+}
+
+function updateActualPage(page) {
+  currentPageInput.value = page;
+}
+
+function updateTotalPages(total) {
+  totalPageElement.innerText = total;
+}
+
+async function goToPage(pageNumber) {
+  const offset = pageNumber * state.limit - state.limit;
+  state.offset = offset;
+  const data = await retrieveData({ offset, orderBy: state.orderBy, direction: state.direction });
+  updateTableInfo(data);
+}
+
+async function handleNext() {
+  if (state.actualPage >= 1 && state.actualPage < state.totalPages) {
+    const nextPage = state.actualPage + 1;
+    goToPage(nextPage);
+    state.actualPage = nextPage;
+  }
+}
+
+async function handlePrevious() {
+  if (state.actualPage > 1 && state.actualPage <= state.totalPages) {
+    const previousPage = state.actualPage - 1;
+    goToPage(previousPage);
+    state.actualPage = previousPage;
+  }
+}
+
+async function handleModifyPage() {
+  if (this.value && this.value >= 1 && this.value <= state.totalPages) {
+    goToPage(this.value);
+    state.actualPage = +this.value;
+  } else {
+    this.value = state.actualPage;
+  }
+}
+
+async function handleSort() {
+  sortButtons.forEach((button) => button.classList.remove(state.direction));
+  const { orderBy } = this.dataset;
+  const direction = state.direction === 'ascending' ? 'descending' : 'ascending';
+  const data = await retrieveData({ offset: state.offset, orderBy, direction });
+  updateTableInfo(data);
+  state.direction = direction;
+  state.orderBy = orderBy;
+  this.classList.add(state.direction);
+}
+
+async function initTable() {
+  const data = await retrieveData();
+  state.totalPages = data.total / state.limit;
+
+  updateTableInfo(data);
+  updateTotalPages(state.totalPages);
+}
+
+document.addEventListener('DOMContentLoaded', initTable);
+nextButton.addEventListener('click', handleNext);
+previousButton.addEventListener('click', handlePrevious);
+currentPageInput.addEventListener('change', handleModifyPage);
+sortButtons.forEach((sortButton) => sortButton.addEventListener('click', handleSort));
